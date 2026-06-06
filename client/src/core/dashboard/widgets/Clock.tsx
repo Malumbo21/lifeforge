@@ -1,10 +1,13 @@
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
+import tinycolor from 'tinycolor2'
 
-import { type WidgetConfig } from '@lifeforge/shared'
+import { type WidgetConfig, usePersonalization } from '@lifeforge/shared'
 import { Card, Flex, Text } from '@lifeforge/ui'
 
 function Clock({ dimension: { h } }: { dimension: { w: number; h: number } }) {
+  const { derivedThemeColor } = usePersonalization()
+
   const [time, setTime] = useState(dayjs().format('HH:mm'))
 
   const [second, setSecond] = useState(dayjs().format('ss'))
@@ -21,6 +24,7 @@ function Clock({ dimension: { h } }: { dimension: { w: number; h: number } }) {
   return (
     <Card
       align={h < 2 ? 'center' : undefined}
+      bg="custom-500"
       direction={h < 2 ? 'row' : 'column'}
       gap="md"
       height="100%"
@@ -30,7 +34,10 @@ function Clock({ dimension: { h } }: { dimension: { w: number; h: number } }) {
         direction="column"
         display={h === 1 ? { base: 'none', sm: 'flex' } : 'flex'}
       >
-        <Text weight="medium">
+        <Text
+          color={tinycolor(derivedThemeColor).isLight() ? 'bg-900' : 'bg-100'}
+          weight="medium"
+        >
           {Intl.DateTimeFormat()
             .resolvedOptions()
             .timeZone.split('/')[1]
@@ -50,7 +57,12 @@ function Clock({ dimension: { h } }: { dimension: { w: number; h: number } }) {
         weight="semibold"
       >
         <Flex align="end">
-          <Text size={h < 2 ? '4xl' : { base: '4xl', sm: '6xl' }}>{time}</Text>
+          <Text
+            color={tinycolor(derivedThemeColor).isLight() ? 'bg-900' : 'bg-100'}
+            size={h < 2 ? '4xl' : { base: '4xl', sm: '6xl' }}
+          >
+            {time}
+          </Text>
           <Text
             color="muted"
             ml="xs"

@@ -72,6 +72,10 @@ router.use('/modules/:moduleName/*', (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
 
+  if (filePath.endsWith('remoteEntry.js')) {
+    res.setHeader('Cache-Control', 'no-cache')
+  }
+
   res.sendFile(resolvedPath, err => {
     if (!err) return
 

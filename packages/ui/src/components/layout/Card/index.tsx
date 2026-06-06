@@ -21,10 +21,11 @@ export function Card<T extends React.ElementType = 'div'>({
       position="relative"
       r="lg"
       {...(props as FlexProps<T>)}
-      bg={{
-        ...(isInteractive ? surface.defaultInteractive : surface.default),
-        ...props.bg
-      }}
+      bg={
+        props.bg ?? {
+          ...(isInteractive ? surface.defaultInteractive : surface.default)
+        }
+      }
       style={{
         ...(isInteractive ? { cursor: 'pointer', transition: 'all 0.2s' } : {}),
         ...style

@@ -59,7 +59,7 @@ export default function Quotes() {
           size="6em"
         />
       </Box>
-      <WithQuery query={quoteQuery}>
+      <WithQuery query={quoteQuery} showRetryButton={false}>
         {quote => (
           <Text
             align="center"
